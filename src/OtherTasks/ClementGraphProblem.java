@@ -1,8 +1,6 @@
 package OtherTasks;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class ClementGraphProblem {
     int[][] matrix =
@@ -20,44 +18,42 @@ public class ClementGraphProblem {
 
 
     public int[][] removeIsland(int[][] matrix) {
-        var visited = new HashMap<String, Boolean>();
+        var visited = new HashSet<String>();
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                if (isBorder(i,j,matrix) && matrix[i][j] == 1 && !visited.contains(""+i+j))
+                    isNotIsland(i,j,matrix,visited);
+            }
+        }
 
         for (int i = 1; i < matrix.length - 1; i++) {
             for (int j = 1; j < matrix[0].length - 1; j++) {
-                if (isIsland(i,j,matrix,visited))
+                if (!visited.contains("" + i + j))
                     matrix[i][j] = 0;
             }
         }
+
         return matrix;
     }
 
 
-    private boolean isIsland(int rowIndex, int columnIndex, int[][] array, HashMap<String, Boolean> visited) {
-        if (rowIndex < 0 || rowIndex == array.length || columnIndex < 0 || columnIndex == array[0].length)
-            return true;
+    private void isNotIsland(int rowIndex, int columnIndex, int[][] matrix, HashSet<String> visited) {
+        if (rowIndex < 0 || rowIndex == this.matrix.length || columnIndex < 0 || columnIndex == this.matrix[0].length)
+            return;
 
-        if (matrix[rowIndex][columnIndex] == 0)
-            return true;
+        if (visited.contains("" + rowIndex + columnIndex))
+            return;
 
-        if (isBorder(rowIndex, columnIndex, array)) {
-            return false;
-        }
+        visited.add("" + rowIndex + columnIndex);
 
-        String node = "" + rowIndex + columnIndex;
-        if (visited.containsKey(node))
-            return visited.get(node);
+        if (this.matrix[rowIndex][columnIndex] == 0)
+            return;
 
-        if (isIsland(rowIndex - 1, columnIndex, array, visited) &&
-            isIsland(rowIndex + 1, columnIndex, array, visited) &&
-            isIsland(rowIndex, columnIndex - 1, array, visited) &&
-            isIsland(rowIndex, columnIndex + 1, array, visited)) {
-            visited.put(node, true);
-            return true;
-        }
-        else {
-            visited.put(node, false);
-            return false;
-        }
+        isNotIsland(rowIndex - 1, columnIndex, matrix, visited);
+        isNotIsland(rowIndex + 1, columnIndex, matrix, visited);
+        isNotIsland(rowIndex, columnIndex - 1, matrix, visited);
+        isNotIsland(rowIndex, columnIndex + 1, matrix, visited);
+
     }
 
     private boolean isBorder(int rowIndex, int columnIndex, int[][] array) {
