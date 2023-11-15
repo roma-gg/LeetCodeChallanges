@@ -28,7 +28,7 @@ public class ClementGraphProblem {
 
         for (int i = 1; i < matrix.length - 1; i++) {
             for (int j = 1; j < matrix[0].length - 1; j++) {
-                if (!visited.contains("" + i + j))
+                if (!visited.contains("" + i + j) && matrix[i][j] == 1)
                     matrix[i][j] = 0;
             }
         }
