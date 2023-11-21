@@ -1,6 +1,7 @@
 package LeetCode;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class LeetCode_Arrays {
@@ -130,5 +131,51 @@ public class LeetCode_Arrays {
 
         return result;
     }
+
+    // 20, 10, 15, 5, 3, 12, 17
+    // 3 15
+
+    //  334. Increasing Triplet Subsequence
+    public boolean increasingTriplet(int[] nums) {
+        int first = Integer.MAX_VALUE;
+        int second = Integer.MAX_VALUE;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] <= first)
+                first = nums[i];
+            else if (nums[i] <= second)
+                second = nums[i];
+            else
+                return true;
+        }
+        return false;
+    }
+
+    // 443. String Compression
+    // a a b b b
+    public int compress(char[] chars) {
+        ArrayList<Character> list = new ArrayList<>();
+        for (int i = 0; i < chars.length; i++) {
+            list.add(chars[i]);
+            int count = 1;
+            while (i < chars.length-1 && chars[i] == chars[i+1]) {
+                i++;
+                count++;
+            }
+            if (count != 1) {
+                char[] array = String.valueOf(count).toCharArray();
+                for (char c : array) {
+                    list.add(c);
+                }
+            }
+        }
+        char[] result = new char[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            result[i] = list.get(i);
+        }
+        chars = result;
+
+        return chars.length;
+    }
+
 
 }
