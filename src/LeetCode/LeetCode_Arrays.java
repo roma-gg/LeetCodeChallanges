@@ -93,4 +93,42 @@ public class LeetCode_Arrays {
                 ch2 == 'o' ||
                 ch2 == 'u';
     }
+
+    // 151. Reverse Words in a String
+    public String reverseWords(String s) {
+        String[] array = s.split("\\s+");
+
+        String result = "";
+        for (String each : array) {
+            result = each + " " + result;
+        }
+
+        return result.trim();
+    }
+
+    // 1 2 3 4
+    // 24 12 8 6
+    // 1 1 2 6 prefix
+    // 24 12 4 1 sufix
+
+    // 238. Product of Array Except Self
+    public int[] productExceptSelf(int[] nums) {
+        int[] result = new int[nums.length];
+
+        result[0] = 1;
+        int current = 1;
+        for (int i = 1; i < result.length; i++) {
+            current *= nums[i-1];
+            result[i] = current;
+        }
+
+        current = 1;
+        for (int i = result.length - 2; i >= 0; i--) {
+            current *= nums[i+1];
+            result[i] *= current;
+        }
+
+        return result;
+    }
+
 }
