@@ -54,4 +54,43 @@ public class LeetCode_Arrays {
 
         return n <= counter;
     }
+
+    //  345. Reverse Vowels of a String
+    public String reverseVowels(String s) {
+        char[] array = s.toCharArray();
+
+        int start = 0;
+        int end = array.length - 1;
+        while (start < end) {
+            while (start < end && !isVowel(array[start])) {
+                start++;
+            }
+            while (start < end && !isVowel(array[end])) {
+                end--;
+            }
+
+            char temp = array[start];
+            array[start] = array[end];
+            array[end] = temp;
+
+            start++;
+            end--;
+        }
+
+        String result = "";
+        for (int i = 0; i < array.length; i++) {
+            result += array[i];
+        }
+
+        return result;
+
+    }
+    private boolean isVowel(char ch) {
+        char ch2 = Character.toLowerCase(ch);
+        return ch2 == 'a' ||
+                ch2 == 'e' ||
+                ch2 == 'i' ||
+                ch2 == 'o' ||
+                ch2 == 'u';
+    }
 }
