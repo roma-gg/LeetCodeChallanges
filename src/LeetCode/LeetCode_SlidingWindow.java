@@ -64,4 +64,27 @@ public class LeetCode_SlidingWindow {
                 ch2 == 'o' ||
                 ch2 == 'u';
     }
+
+    // 1004. Max Consecutive Ones III
+    // [0,0,1,1,0,0,1,1,1,0,1,1,0,0,0,1,1,1,1], k = 3
+    //                  ^                   ^
+    public int longestOnes(int[] nums, int k) {
+        int left = 0;
+        int right = 0;
+        int zeros = 0;
+
+        while(right < nums.length){
+            if(nums[right] == 0){
+                zeros++;
+            }
+            right++;
+            if(zeros > k){
+                if(nums[left] == 0){
+                    zeros--;
+                }
+                left++;
+            }
+        }
+        return right-left;
+    }
 }
