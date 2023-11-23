@@ -87,4 +87,24 @@ public class LeetCode_SlidingWindow {
         }
         return right-left;
     }
+
+    // 1493. Longest Subarray of 1's After Deleting One Element
+    // 0,1,1,1,0,1,1,0,1
+    //   ^           ^
+    public int longestSubarray(int[] nums) {
+        int left = 0;
+        int right = 0;
+        int zeros = 0;
+        while (right < nums.length) {
+            if (nums[right] == 0)
+                zeros++;
+            right++;
+            if (zeros > 1) {
+                if (nums[left] == 0)
+                    zeros--;
+                left++;
+            }
+        }
+        return right - left - 1;
+    }
 }
