@@ -34,4 +34,20 @@ public class LeetCode_Set_Map {
 
         return result;
     }
+
+    // 1207. Unique Number of Occurrences
+    public boolean uniqueOccurrences(int[] arr) {
+        var map = new HashMap<Integer, Integer>();
+        for (int each : arr) {
+            if (map.containsKey(each))
+                map.put(each, map.get(each) + 1);
+            else
+                map.put(each, 1);
+        }
+
+        var setOfFreq = new HashSet<Integer>();
+        setOfFreq.addAll(map.values());
+
+        return map.values().size() == setOfFreq.size();
+    }
 }
