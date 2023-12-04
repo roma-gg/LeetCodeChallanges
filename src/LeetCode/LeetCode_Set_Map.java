@@ -89,4 +89,33 @@ public class LeetCode_Set_Map {
         return word1Freq.equals(word2Freq);
     }
 
+    // 2352. Equal Row and Column Pairs
+    // 6 / [3,2,1],
+    // 14 / [1,7,6],
+    // 16 / [2,7,7]]
+    // HashMap<Sum, HashMap<array, freq>>
+    // if column equal -> count += freq
+    public int equalPairs(int[][] grid) {
+        HashMap<String, Integer> map = new HashMap<>();
+        for (int[] row : grid) {
+            String key = Arrays.toString(row);
+            map.put(key, map.getOrDefault(key, 0) + 1);
+        }
+
+        int count = 0;
+        for (int i = 0; i < grid[0].length; i++) {
+            int[] column = new int[grid.length];
+            for (int j = 0; j < grid.length; j++) {
+                column[j] = grid[j][i];
+            }
+            String key = Arrays.toString(column);
+            if (map.containsKey(key)) {
+                count += map.get(key);
+            }
+        }
+
+        return count;
+    }
+
+
 }
